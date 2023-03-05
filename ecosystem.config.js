@@ -1,5 +1,3 @@
-console.log(process.env);
-
 module.exports = {
   apps : [{
     name: 'super-visuals',
@@ -41,7 +39,7 @@ module.exports = {
       repo : process.env.DEPLOY_REPO,
       path : process.env.DEPLOY_PATH,
       'pre-deploy-local': '',
-      'post-deploy' : 'sh ./run.sh',
+      'post-deploy' : 'yarn && sh ./scripts/run.sh',
       'pre-setup': ''
     }
   }
