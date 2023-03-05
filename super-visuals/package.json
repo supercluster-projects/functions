@@ -1,0 +1,16 @@
+{
+  "name": "super_visuals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "Vladimir Minkin for SUPER CLUSTER",
+  "license": "CC BY-NC-SA 4.0",
+  "dependencies": {
+    "nano": "^10.1.2",
+    "telegraf": "^4.11.2",
+    "tumblr.js": "^3.0.0",
+    "vk-io": "^4.8.1"
+  }
+}

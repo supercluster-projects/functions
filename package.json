@@ -1,0 +1,12 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ecosystem.config.js",
+  "devDependencies": {},
+  "scripts": {
+    "install:all": "for D in */; do yarn --cwd \"${D}\"; done"
+  },
+  "author": "",
+  "license": "ISC"
+}
