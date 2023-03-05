@@ -8,7 +8,7 @@ module.exports = {
     // watch: '.',
     ignore_watch : ["node_modules"],
     max_memory_restart: '100M',
-    cron_restart: '1/30 * * * *',
+    cron_restart: '*/30 * * * *',
     env: {
       DB_URL: process.env.DB_URL,
       DB_NAME: process.env.DB_NAME,

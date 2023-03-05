@@ -6,7 +6,7 @@ const extractFromLast = (link, last) => link.substring(link.lastIndexOf(last));
 
 const appendLink = (prefix, source_url) => {
   if (source_url?.length > 0) {
-    return `\n${prefix}: ${extractFromLast(source_url, 'https://')}`;
+    return `\n${prefix}${extractFromLast(source_url, 'https://')}`;
   }
   return '';
 }

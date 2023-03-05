@@ -76,7 +76,7 @@ async function main() {
 
             if (!hasContent) return updateDocument();
 
-            let summary = result.post.summary + MediaUtils.appendLink('source:', result.post.source_url);
+            let summary = result.post.summary + MediaUtils.appendLink('source: ', result.post.source_url);
 
             return Promise.all([
               Promise
