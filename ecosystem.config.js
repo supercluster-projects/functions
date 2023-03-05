@@ -10,6 +10,7 @@ module.exports = {
     max_memory_restart: '100M',
     cron_restart: '*/30 * * * *',
     env: {
+      NODE_ENV: 'production',
       DB_URL: process.env.DB_URL,
       DB_NAME: process.env.DB_NAME,
       DB_USER: process.env.DB_USER,
@@ -47,7 +48,7 @@ module.exports = {
 
 
 // 'oauth.vk.com/authorize?client_id=[]&scope=pages,groups,notes,wall,docs,photos,offline&redirect_uri=http://oauth.vk.com/blank.html&display=page&response_type=token';
-//
+
 // 1. 'https://oauth.vk.com/authorize?client_id=[]&group_ids=[]&display=page&scope=wall,docs,photos&redirect_uri=http://oauth.vk.com/blank.html&v=5.131&response_type=code';
 // 2. https://oauth.vk.com/blank.html#code=[]
 // 3. "https://oauth.vk.com/access_token?client_id=6070130&client_secret=[]&redirect_uri=http://oauth.vk.com/blank.html&code=[]";
