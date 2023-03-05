@@ -1,1 +1,2 @@
-yarn run install:all && dotenv -e .env -e ./super-visuals/.env pm2 startOrRestart ecosystem.config.js
+yarn run install:all;
+sh ./scripts/env.sh "pm2 startOrRestart ecosystem.config.js"

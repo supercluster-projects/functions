@@ -38,9 +38,9 @@ module.exports = {
       ref  : process.env.DEPLOY_REF,
       repo : process.env.DEPLOY_REPO,
       path : process.env.DEPLOY_PATH,
-      'pre-deploy-local': '',
+      'pre-deploy-local': 'sh ./scripts/copy.sh',
       'post-deploy' : 'yarn && sh ./scripts/run.sh',
-      'pre-setup': ''
+      'pre-setup': `rm -rf ${process.env.DEPLOY_PATH}`,
     }
   }
 };
