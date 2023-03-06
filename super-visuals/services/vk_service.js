@@ -26,7 +26,7 @@ class VKService {
   }
 
   async post(id, message, attachments){
-    return this.vk.api.wall.post({ message: `${message}\n#SPRCLSTR : ${id}`,
+    return this.vk.api.wall.post({ message: `${message}\n#SPRVSLS : ${id}`,
       owner_id: -this.group, from_group: 1, friends_only: 0, attachments,
     });
   }
