@@ -56,52 +56,49 @@ const vk = new VKService(process.env.VK_APP_SPRCLSTR_TOKEN, VK_GROUP_ID, VK_GROU
 const tg = new TGService(process.env.TG_BOT_SUPER_VISUAL_TOKEN, TG_GROUP_ID);
 const db = new DBService(process.env.DB_URL, process.env.DB_NAME);
 
-async function main() {
-  await db.login(process.env.DB_USER, process.env.DB_PASS)
-    .then(() => db.get(DB_DOCUMENT_ID))
-    .then(async (document) => {
-      console.log('document', document);
+db.login(process.env.DB_USER, process.env.DB_PASS)
+  .then(() => db.get(DB_DOCUMENT_ID))
+  .then(async (document) => {
+    console.log('document', document);
 
-      return tm.getPost(document.cid)
-        .then(async (post) => {
-          if (post) {
-            const result = await parsePostContents(post);
-            const contents = result.content;
-            const hasContent = contents.length > 0;
+    return tm.getPost(document.cid)
+      .then(async (post) => {
+        if (post) {
+          const result = await parsePostContents(post);
+          const contents = result.content;
+          const hasContent = contents.length > 0;
 
-            console.log(`> Main -> post: id = ${result.post.id_string}`)
-            console.log(`> Main -> post: contents = ${contents}`)
+          console.log(`> Main -> post: id = ${result.post.id_string}`)
+          console.log(`> Main -> post: contents = ${contents}`)
 
-            const updateDocument = () => db.update(document, { cid: post.id_string });
+          const updateDocument = () => db.update(document, { cid: post.id_string });
 
-            if (!hasContent) return updateDocument();
+          if (!hasContent) return updateDocument();
 
-            let summary = result.post.summary + MediaUtils.appendLink('source: ', result.post.source_url);
+          let summary = result.post.summary + MediaUtils.appendLink('source: ', result.post.source_url);
 
-            return Promise.all([
-              Promise
-                .all(contents.map(url => vk.uploadToAlbum(url, MediaUtils.isDocument(url))))
-                .then(attachments => vk.post(post.id_string, summary, attachments))
-                .then(() => console.log('> VK -> Posted')),
-              tg.post(
-                summary,
-                contents.filter((url) => MediaUtils.isImage(url)),
-                contents.filter((url) => MediaUtils.isVideo(url)),
-                contents.filter((url) => MediaUtils.isDocument(url))
-              ).then(() => console.log('> TG -> Posted')),
-            ])
-              .then(() => updateDocument())
-              .then(() => console.log('> Completed'))
-              .catch((err) => new Error(`> ERROR: ${err}`))
-          } else {
-            console.log('> No posts')
-            return false;
-          }
-        })
-    }).catch(e => console.error(e));
-}
+          return Promise.all([
+            Promise
+              .all(contents.map(url => vk.uploadToAlbum(url, MediaUtils.isDocument(url))))
+              .then(attachments => vk.post(post.id_string, summary, attachments))
+              .then(() => console.log('> VK -> Posted')),
+            tg.post(
+              summary,
+              contents.filter((url) => MediaUtils.isImage(url)),
+              contents.filter((url) => MediaUtils.isVideo(url)),
+              contents.filter((url) => MediaUtils.isDocument(url))
+            ).then(() => console.log('> TG -> Posted')),
+          ])
+            .then(() => updateDocument())
+            .then(() => console.log('> Completed'))
+            .catch((err) => new Error(`> ERROR: ${err}`))
+        } else {
+          console.log('> No posts')
+          return false;
+        }
+      })
+  }).catch(e => console.error(e));
 
-main();
 
 
 
